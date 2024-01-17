@@ -20,7 +20,8 @@ document.getElementById('btn-clear').addEventListener('click', function () {
     angkaCurrent = undefined;
     actBtn = false;
 
-    mainAngka.innerText = '0';
+    // mainAngka.innerText = '0';
+    setMainAngka(0);
     operatorTxt.innerText = '?';
     hasilEl.innerText = '';
     currentResult.innerText = '';
@@ -35,9 +36,9 @@ document.getElementById('btn-delete').addEventListener('click', function () {
     if (angkaCurrent != undefined) {
         angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length - 1));
         if (angkaCurrent.length < 1) {
-            mainAngka.innerText = 0;
+            setMainAngka(0);
         } else {
-            mainAngka.innerText = angkaCurrent;
+            setMainAngka(angkaCurrent);
         }
     }
 
@@ -115,7 +116,8 @@ function setHasil() {
         actBtn = false;
         angkaDump = undefined;
 
-        mainAngka.innerText = angka;
+        // mainAngka.innerText = angka;
+        setMainAngka(angka);
 
         hasilEl.innerText = angka;
 
@@ -177,5 +179,15 @@ function showAngka(a) {
 
     // console.log(angkaCurrent);
 
-    mainAngka.innerText = angkaCurrent;
+
+    // console.log(new Intl.NumberFormat('de-DE').format(angkaCurrent));
+
+    // mainAngka.innerText = angkaCurrent;
+    // mainAngka.innerText = new Intl.NumberFormat('de-DE').format(angkaCurrent);
+    setMainAngka(angkaCurrent);
+}
+
+/* Set Angka be Currency */
+function setMainAngka(n) {
+    mainAngka.innerText = new Intl.NumberFormat('de-DE').format(parseInt(n));
 }
