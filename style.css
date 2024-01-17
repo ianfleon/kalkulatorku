@@ -105,6 +105,9 @@ body {
   background-color: #eee;
 }
 
+.mr-2 { margin-right: .5rem; }
+.mb-2 { margin-bottom: .5rem; }
+
 #header {
   width: 100%;
   /* height: 25%; */
@@ -121,7 +124,10 @@ body {
     margin-bottom: 1rem;
 }
 
-#operator-text {
+.fw-bold {
     font-weight: bold;
-    font-size: 24pt;
+}
+
+.txt-muted {
+    color: #666;
 }

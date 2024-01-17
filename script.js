@@ -6,6 +6,7 @@ let angkaCurrent = undefined;
 const mainAngka = document.getElementById('main-angka');
 const btns = document.querySelectorAll('button[data-btn]');
 const hasilEl = document.getElementById('hasil');
+const currentResult = document.getElementById('current-result');
 const operatorTxt = document.getElementById('operator-text');
 const btnsNomor = document.querySelectorAll('button[data-nomor]');
 
@@ -28,13 +29,15 @@ document.getElementById('btn-delete').addEventListener('click', function() {
     
     console.log('Btn Delete clicked!');
 
-    angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length-1));
-    
-    if (angkaCurrent.length < 1) {
-        mainAngka.innerText = 0;
-    } else {
-        mainAngka.innerText = angkaCurrent;
+    if (angkaCurrent != undefined) {
+        angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length-1));
+        if (angkaCurrent.length < 1) {
+            mainAngka.innerText = 0;
+        } else {
+            mainAngka.innerText = angkaCurrent;
+        }
     }
+    
     console.log(angkaCurrent);
 
 });
@@ -69,20 +72,14 @@ function setHasil() {
         }
     }
 
-    console.log("angka: " + angka);
-    console.log("angkaDump: " + angkaDump);
-    console.log("angkaCurrent: " + angkaCurrent);
+    // console.log("angka: " + angka);
+    // console.log("angkaDump: " + angkaDump);
+    // console.log("angkaCurrent: " + angkaCurrent);
 
-    // if (actBtn != false) {
-    //     hitungan.appendChild(showHitungan(actBtn));
-    // }
+    if (angkaCurrent != undefined) {
+        currentResult.innerHTML = angkaCurrent;
+    }
 
-    // if (angkaCurrent != undefined) {
-    //     // console.log(angkaCurrent);
-    //     hitungan.appendChild(showHitungan(angkaCurrent));
-    // }
-
-    //   console.log(noSpan);
 
     angkaCurrent = undefined;
 
@@ -146,7 +143,7 @@ document.addEventListener('paste', evt => {
 });
 
 function showHitungan(t) {
-    const noSpan = document.createElement('span');
+    const noSpan = document.createElement('p');
     const noTxt = document.createTextNode(t);
     noSpan.append(noTxt);
     return noSpan;
