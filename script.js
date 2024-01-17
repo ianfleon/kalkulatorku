@@ -10,9 +10,10 @@ const currentResult = document.getElementById('current-result');
 const operatorTxt = document.getElementById('operator-text');
 const btnsNomor = document.querySelectorAll('button[data-nomor]');
 
+/* Event: Clear Button */
 document.getElementById('btn-clear').addEventListener('click', function() {
     
-    console.log('Btn Clear clicked!');
+    // console.log('Btn Clear clicked!');
     
     angka = undefined;
     angkaDump = undefined;
@@ -25,9 +26,10 @@ document.getElementById('btn-clear').addEventListener('click', function() {
 
 });
 
+/* Event: Delete Button */
 document.getElementById('btn-delete').addEventListener('click', function() {
     
-    console.log('Btn Delete clicked!');
+    // console.log('Btn Delete clicked!');
 
     if (angkaCurrent != undefined) {
         angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length-1));
@@ -44,6 +46,7 @@ document.getElementById('btn-delete').addEventListener('click', function() {
 
 // console.log(btnsNomor);
 
+/* Event: Number Buttons clicked */
 btnsNomor.forEach(function(btn) {
     btn.addEventListener('click', function () {
         // console.log(btn)
@@ -51,6 +54,7 @@ btnsNomor.forEach(function(btn) {
     });
 });
 
+/* Event: Operational Buttons Clicked */
 btns.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
         setHasil();
@@ -60,6 +64,7 @@ btns.forEach(function (btn) {
     });
 });
 
+/* Set Result and Show to Kalkulator */
 function setHasil() {
 
     if (angka != undefined) {
@@ -142,6 +147,7 @@ document.addEventListener('paste', evt => {
 
 });
 
+/* Show Result to Header */
 function showHitungan(t) {
     const noSpan = document.createElement('p');
     const noTxt = document.createTextNode(t);
@@ -149,6 +155,7 @@ function showHitungan(t) {
     return noSpan;
 }
 
+/* Show Current Numbers clicked to Kalkulatorku */
 function showAngka(a) {
 
     if (angkaCurrent != undefined) {
