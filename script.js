@@ -11,10 +11,10 @@ const operatorTxt = document.getElementById('operator-text');
 const btnsNomor = document.querySelectorAll('button[data-nomor]');
 
 /* Event: Clear Button */
-document.getElementById('btn-clear').addEventListener('click', function() {
-    
+document.getElementById('btn-clear').addEventListener('click', function () {
+
     // console.log('Btn Clear clicked!');
-    
+
     angka = undefined;
     angkaDump = undefined;
     angkaCurrent = undefined;
@@ -23,23 +23,24 @@ document.getElementById('btn-clear').addEventListener('click', function() {
     mainAngka.innerText = '0';
     operatorTxt.innerText = '?';
     hasilEl.innerText = '';
+    currentResult.innerText = '';
 
 });
 
 /* Event: Delete Button */
-document.getElementById('btn-delete').addEventListener('click', function() {
-    
+document.getElementById('btn-delete').addEventListener('click', function () {
+
     // console.log('Btn Delete clicked!');
 
     if (angkaCurrent != undefined) {
-        angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length-1));
+        angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length - 1));
         if (angkaCurrent.length < 1) {
             mainAngka.innerText = 0;
         } else {
             mainAngka.innerText = angkaCurrent;
         }
     }
-    
+
     console.log(angkaCurrent);
 
 });
@@ -47,7 +48,7 @@ document.getElementById('btn-delete').addEventListener('click', function() {
 // console.log(btnsNomor);
 
 /* Event: Number Buttons clicked */
-btnsNomor.forEach(function(btn) {
+btnsNomor.forEach(function (btn) {
     btn.addEventListener('click', function () {
         // console.log(btn)
         showAngka(btn.dataset.nomor);
@@ -91,13 +92,19 @@ function setHasil() {
 
     // Cek hasil jika ada angka ke 2
     if (angkaDump != undefined) {
-        
+
         switch (actBtn) {
             case '-':
                 angka = (parseInt(angka) - parseInt(angkaDump));
                 break;
             case '+':
                 angka = (parseInt(angka) + parseInt(angkaDump));
+                break;
+            case ':':
+                angka = (parseInt(angka) / parseInt(angkaDump));
+                break;
+            case '*':
+                angka = (parseInt(angka) * parseInt(angkaDump));
                 break;
             default:
                 console.log("PAKYU");
@@ -107,7 +114,7 @@ function setHasil() {
         // Reset Dummy
         actBtn = false;
         angkaDump = undefined;
-        
+
         mainAngka.innerText = angka;
 
         hasilEl.innerText = angka;
@@ -126,14 +133,16 @@ document.addEventListener('paste', evt => {
     let txt = evt.clipboardData.getData('text/plain');
     // console.log(txt);
 
-    txt = txt.replace(/^\D+/g, '');
+    txt = txt.replace(/(,)/g, '');
     console.log(txt);
+
+    angkaCurrent = txt;
+    mainAngka.innerText = txt;
 
     txt = parseInt(txt);
 
 
-    mainAngka.innerText = txt;
-    
+
     if (angka === undefined) {
         angka = parseInt(txt);
         console.log("angka: " + angka);
