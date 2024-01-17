@@ -1,11 +1,22 @@
 let angka = undefined;
 let angkaDump = undefined;
 let actBtn = false;
+let angkaCurrent = undefined;
 
 const mainAngka = document.getElementById('main-angka');
 const btns = document.querySelectorAll('button[data-btn]');
-const hitungan = document.getElementById('hitungan');
+const hasilEl = document.getElementById('hasil');
 const operatorTxt = document.getElementById('operator-text');
+const btnsNomor = document.querySelectorAll('button[data-nomor]');
+
+// console.log(btnsNomor);
+
+btnsNomor.forEach(function(btn) {
+    btn.addEventListener('click', function () {
+        // console.log(btn)
+        showAngka(btn.dataset.nomor);
+    });
+});
 
 btns.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
@@ -18,22 +29,60 @@ btns.forEach(function (btn) {
 
 function setHasil() {
 
-    // Cek hasil jika ada angka ke 2
-    if (angkaDump != undefined) {
-        switch (actBtn) {
-            case '-':
-                angka = (angka - angkaDump);
-                break;
-            case '+':
-                angka = (angka + angkaDump);
-                break;
+    if (angka != undefined) {
+        if (!isNaN(angkaCurrent)) {
+            angkaDump = parseInt(angkaCurrent);
         }
-        // Reset
-        actBtn = false;
-        angkaDump = undefined;
+    } else {
+        if (!isNaN(angkaCurrent)) {
+            angka = parseInt(angkaCurrent);
+        }
     }
 
-    mainAngka.innerText = angka;
+    console.log("angka: " + angka);
+    console.log("angkaDump: " + angkaDump);
+    console.log("angkaCurrent: " + angkaCurrent);
+
+    // if (actBtn != false) {
+    //     hitungan.appendChild(showHitungan(actBtn));
+    // }
+
+    // if (angkaCurrent != undefined) {
+    //     // console.log(angkaCurrent);
+    //     hitungan.appendChild(showHitungan(angkaCurrent));
+    // }
+
+    //   console.log(noSpan);
+
+    angkaCurrent = undefined;
+
+
+    // Cek hasil jika ada angka ke 2
+    if (angkaDump != undefined) {
+        
+        switch (actBtn) {
+            case '-':
+                angka = (parseInt(angka) - parseInt(angkaDump));
+                break;
+            case '+':
+                angka = (parseInt(angka) + parseInt(angkaDump));
+                break;
+            default:
+                console.log("PAKYU");
+                break;
+        }
+
+        // Reset Dummy
+        actBtn = false;
+        angkaDump = undefined;
+        
+        mainAngka.innerText = angka;
+
+        hasilEl.innerText = angka;
+
+        // console.log('hasil: ' + angka);
+    }
+
     // console.log(angka);
 
 }
@@ -52,13 +101,6 @@ document.addEventListener('paste', evt => {
 
 
     mainAngka.innerText = txt;
-
-    if (actBtn != false) {
-        hitungan.appendChild(showHitungan(actBtn));
-    }
-
-    //   console.log(noSpan);
-    hitungan.appendChild(showHitungan(txt));
     
     if (angka === undefined) {
         angka = parseInt(txt);
@@ -67,7 +109,7 @@ document.addEventListener('paste', evt => {
     }
 
     angkaDump = parseInt(txt);
-    console.log("angkaDump: " + angka);
+    // console.log("angkaDump: " + angka);
 
     return txt;
 
@@ -78,4 +120,19 @@ function showHitungan(t) {
     const noTxt = document.createTextNode(t);
     noSpan.append(noTxt);
     return noSpan;
+}
+
+function showAngka(a) {
+
+    if (angkaCurrent != undefined) {
+        if (angkaCurrent.length < 12) {
+            angkaCurrent += a;
+        }
+    } else {
+        angkaCurrent = a;
+    }
+
+    // console.log(angkaCurrent);
+
+    mainAngka.innerText = angkaCurrent;
 }
