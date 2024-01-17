@@ -9,6 +9,36 @@ const hasilEl = document.getElementById('hasil');
 const operatorTxt = document.getElementById('operator-text');
 const btnsNomor = document.querySelectorAll('button[data-nomor]');
 
+document.getElementById('btn-clear').addEventListener('click', function() {
+    
+    console.log('Btn Clear clicked!');
+    
+    angka = undefined;
+    angkaDump = undefined;
+    angkaCurrent = undefined;
+    actBtn = false;
+
+    mainAngka.innerText = '0';
+    operatorTxt.innerText = '?';
+    hasilEl.innerText = '';
+
+});
+
+document.getElementById('btn-delete').addEventListener('click', function() {
+    
+    console.log('Btn Delete clicked!');
+
+    angkaCurrent = angkaCurrent.slice(0, (angkaCurrent.length-1));
+    
+    if (angkaCurrent.length < 1) {
+        mainAngka.innerText = 0;
+    } else {
+        mainAngka.innerText = angkaCurrent;
+    }
+    console.log(angkaCurrent);
+
+});
+
 // console.log(btnsNomor);
 
 btnsNomor.forEach(function(btn) {
